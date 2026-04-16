@@ -9,7 +9,7 @@
 
 # Starting with Task 3 : Data Exfil: Overview, techniques, and indicators
 ## The question : Exfiltrating the data through HTTP comes under which technique?
-**Answer : Network-based**
+**Answer : Network-based** <br>
 this is becasuse as we see in the lab in Network- Based Attacks , Threat Actors can exfiltrate data with (HTTP/HTTPS uploads to S3/Azure Blob/webmail, FTP/SFTP/SCP, DNS tunnelling, ICMP/covert protocols, custom TCP/UDP.) and it's basically when an attacker abuses a file upload feature on a website or API to send malicious files instead of legitimate ones
 
 
@@ -30,15 +30,15 @@ to identify the data exfiltration attempts through DNS tunneling
 <img width="1918" height="932" alt="image" src="https://github.com/user-attachments/assets/64be1493-46b8-4b28-940b-ed59cfe6c74f" />
 
 ## Question 1 :What is the suspicious domain receiving the DNS traffic?
-**Answer: tunnelcorp.net**
+**Answer: tunnelcorp.net** <br>
 we can see the domain in wireshark and splunka
 
 ## Question 2 :How many suspicious traffic/logs related to dns tunneling were observed?
-**Answer: 315**
+**Answer: 315** <br>
 we can see the number of events after applying the filter on splunk
 
 ## Question 3:Which local IP sent the maximum number of suspicious requests?
-**Answer: 192.168.1.103**
+**Answer: 192.168.1.103** <br>
 <img width="1224" height="638" alt="image" src="https://github.com/user-attachments/assets/b361416b-b415-499c-bf92-784539164d50" />
 After Applying the Filter if we clicked on the Src_ip we'll see which local ip sent the maximum number of suspicious requests
 
