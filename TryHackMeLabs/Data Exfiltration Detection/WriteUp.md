@@ -43,5 +43,8 @@ we can see the number of events after applying the filter on splunk
 After Applying the Filter if we clicked on the Src_ip we'll see which local ip sent the maximum number of suspicious requests
 
 
+# Task 5: detection: Data Exfil through FTP
 
+So After opining the ftp-lab.pcap file in the lab we we'll see a lot of ftp packets. We only want to filter the anomalies 
 
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/f7409ffe-3add-4d1a-bbda-b51b4e36951b" />
