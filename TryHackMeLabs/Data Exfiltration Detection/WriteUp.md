@@ -1,4 +1,4 @@
-<img width="1130" height="319" alt="image" src="https://github.com/user-attachments/assets/fac5ea17-9fc9-472d-ad86-0b85dc637a7d" /># WARNING : This write-up is created strictly for educational purposes within controlled lab environments.
+# WARNING : This write-up is created strictly for educational purposes within controlled lab environments.
 
 **Do NOT attempt to access, scan, or interact with any IP addresses, domains, or systems mentioned here outside of their intended lab context. These targets are part of simulated or authorized environments only.**
 **Any unauthorized use against real-world systems is illegal and unethical, and I do not take responsibility for misuse of the information provided.**
@@ -91,6 +91,41 @@ it's found in the csv file after following the tcp stream ( you can find the ans
 
 
 # Task 6: Detection: Data Exfil via HTTP
-I'm gonna try to summarize this section 
+I'm gonna try to summarize this section . in this specific Lab the attack happened using the Post method 
+so we're gonna open splunk and after applying "index="data_exfil" sourcetype="http_logs" method=POST bytes_sent > 600 | table _time src_ip uri domain dst_ip bytes_sent | sort - bytes_sent"
+we're gonna notice the anomaly 
+the filter for only showing the Packets with POST method and have a large bytes size
+<img width="800" height="413" alt="image" src="https://github.com/user-attachments/assets/0c1018eb-6f76-4aec-bb40-0a80cb65b91a" />
+so it's confirmed that there's a suspicious activity that is going in the network
+so ofc i had to open wireshark to deeply investigate the anomaly
+and as i sayed the attack in this Lab happened using the POST method 
+so i filtered using " http.request.method == "POST" and frame.len > 750"
+<img width="800" height="725" alt="image" src="https://github.com/user-attachments/assets/c9ddf5db-fd13-45e1-b30b-ca83aa01a551" />
+<img width="1291" height="858" alt="image" src="https://github.com/user-attachments/assets/d5331b2e-dd6b-4285-ba6f-aafb2caaf1d9" />
+
+## Quesiton 1 : Which internal compromised host was used to exfiltrate this sensitive data?
+Answer :192.168.1.103
+we can obv see that during our investigation in wireshark
+
+## Question 2 : What's the flag hidden inside the exfiltrated data?
+Answer: THM{http_raw_3xf1ltr4t10n_succ3ss}
+we also can see that after looking at the tcp stream 
 
 
+
+
+# Task 7 : Detection: Data exfiltration via ICMP
+
+during this section we're gonna use wireshark so i filtered " icmp.type == 8 and frame.len > 100" and the code is  8 because we wanna see the data being sent in our network and i wanted to make sure to show only the large frame length  because  Normal pings are ~74 bytes total. Anything over 100 is suspicious.
+<img width="800" height="245" alt="image" src="https://github.com/user-attachments/assets/1a9c2ba8-7832-4c14-86ac-cf43f82e4689" />
+and that's it the icmp anomaly can be seen through lare payloads size
+
+
+## quesion 1: What is the flag found in the exfiltrated data through ICMP?
+Answer:THM{1cmp_3ch0_3xf1ltr4t10n_succ3ss}
+
+by exploring every packet you'll notice the flag
+<img width="800" height="675" alt="image" src="https://github.com/user-attachments/assets/bf43e79a-2ab9-4d05-a312-6d4ad0d83c93" />
+
+
+# THE END
