@@ -16,18 +16,18 @@ this is becasuse as we see in the lab in Network- Based Attacks , Threat Actors 
 # Task 4: Detection: Data Exfil through DNS tunneling
 here we're gonna start our lab 
 after opining the dns_exfil.pcap file with wireshark
-<img width="1090" height="827" alt="image" src="https://github.com/user-attachments/assets/693543bf-f822-419b-ad24-6b0e6de84aee" />
+<img width="1000" height="827" alt="image" src="https://github.com/user-attachments/assets/693543bf-f822-419b-ad24-6b0e6de84aee" />
 we can see a 2000 displayed packet 
 we wanna detect DNS Tunneling so we're gonna filter dns.flags.response == 0 
-<img width="1391" height="386" alt="image" src="https://github.com/user-attachments/assets/e73a1a84-380e-4bcb-9b8d-f48775d88334" />
+<img width="1000" height="386" alt="image" src="https://github.com/user-attachments/assets/e73a1a84-380e-4bcb-9b8d-f48775d88334" />
 and we're gonna notice that there's some suspicious domain names with a large query length
 and i want to get more info about it so i'm gonna put a filter that filters the frame length and it's gonna be frame.len > 70 because usually the unusually long full query names > 60–100 characters
-<img width="1899" height="936" alt="image" src="https://github.com/user-attachments/assets/4405a7bc-af75-41a1-b263-526b03521c5e" />
+<img width="1000" height="936" alt="image" src="https://github.com/user-attachments/assets/4405a7bc-af75-41a1-b263-526b03521c5e" />
 
 And BINGO i noticed a weird long queries and Many DNS queries are sent to a single external domain 
 in splunk we can filter "index="data_exfil" sourcetype="DNS_logs" | where len(query) > 30" 
 to identify the data exfiltration attempts through DNS tunneling
-<img width="1918" height="932" alt="image" src="https://github.com/user-attachments/assets/64be1493-46b8-4b28-940b-ed59cfe6c74f" />
+<img width="1000" height="932" alt="image" src="https://github.com/user-attachments/assets/64be1493-46b8-4b28-940b-ed59cfe6c74f" />
 
 ## Question 1 :What is the suspicious domain receiving the DNS traffic?
 **Answer: tunnelcorp.net** <br>
@@ -39,7 +39,7 @@ we can see the number of events after applying the filter on splunk
 
 ## Question 3:Which local IP sent the maximum number of suspicious requests?
 **Answer: 192.168.1.103** <br>
-<img width="1224" height="638" alt="image" src="https://github.com/user-attachments/assets/b361416b-b415-499c-bf92-784539164d50" />
+<img width="1000" height="638" alt="image" src="https://github.com/user-attachments/assets/b361416b-b415-499c-bf92-784539164d50" />
 After Applying the Filter if we clicked on the Src_ip we'll see which local ip sent the maximum number of suspicious requests
 
 
