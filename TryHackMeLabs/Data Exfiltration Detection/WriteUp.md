@@ -16,13 +16,13 @@ this is becasuse as we see in the lab in Network- Based Attacks , Threat Actors 
 # Task 4: Detection: Data Exfil through DNS tunneling
 here we're gonna start our lab 
 after opining the dns_exfil.pcap file with wireshark
-<img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/693543bf-f822-419b-ad24-6b0e6de84aee" />
+<img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/693543bf-f822-419b-ad24-6b0e6de84aee" />
 we can see a 2000 displayed packet 
 we wanna detect DNS Tunneling so we're gonna filter dns.flags.response == 0 
-<img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/e73a1a84-380e-4bcb-9b8d-f48775d88334" />
+<img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/e73a1a84-380e-4bcb-9b8d-f48775d88334" />
 and we're gonna notice that there's some suspicious domain names with a large query length
 and i want to get more info about it so i'm gonna put a filter that filters the frame length and it's gonna be frame.len > 70 because usually the unusually long full query names > 60–100 characters
-<img width="800" height="800" alt="image" src="https://github.com/user-attachments/assets/4405a7bc-af75-41a1-b263-526b03521c5e" />
+<img width="1200" height="675" alt="image" src="https://github.com/user-attachments/assets/4405a7bc-af75-41a1-b263-526b03521c5e" />
 
 And BINGO i noticed a weird long queries and Many DNS queries are sent to a single external domain 
 in splunk we can filter "index="data_exfil" sourcetype="DNS_logs" | where len(query) > 30" 
